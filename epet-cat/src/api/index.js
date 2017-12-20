@@ -9,4 +9,16 @@ export function getCategorys() {
 export function getBrands() {
   return axios.get('/api2/brand')
 }
+export function getHomeNav() {
+  return axios.get('/api2/HomeDataNav')
+}
+export function getSlidPic() {
+  return axios.get('/api2/slideshow')
+}
+export function getHomeData() {
+  return axios.get('/api2/homeData')
+}
+export function getbrandGather() {
+  return axios.get('/api2/brandGather')
+}
 

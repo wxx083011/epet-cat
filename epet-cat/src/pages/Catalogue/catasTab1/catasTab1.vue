@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import catasGood from  '../../../pages/Catalogue/catasTab1/catasGood.vue'
+  import catasGood from  './catasGood/catasGood.vue'
   import {mapState} from 'vuex'
   import BScroll from 'better-scroll'
   export default {
@@ -35,10 +35,8 @@
 
     },
     methods: {
-      clickMenuItem(index,category){
-        //让右侧滚动到对应的位置
-//        console.log('clickMenuItem()',index,category)
-//       this.category=category
+      clickMenuItem(index){
+
         this.cataindex = index
 
       },

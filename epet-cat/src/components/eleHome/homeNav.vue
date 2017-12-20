@@ -1,44 +1,9 @@
 <template>
   <div class="home-nav" ref="homeNav">
     <ul class="dscroll-ul ">
-      <li class="dscroll-li active">
-        <a href="">首页<i></i>
-        </a>
-      </li>
-      <li class="dscroll-li">
-        <a href="">服饰城<i></i>
-        </a>
-      </li>
-      <li class="dscroll-li">
-        <a href="">狗狗主粮<i></i>
-        </a>
-      </li>
-      <li class="dscroll-li">
-        <a href=""> 医疗保健<i></i>
-        </a>
-      </li>
-      <li class="dscroll-li">
-        <a href="">零食玩具 <i></i>
-        </a>
-      </li>
-      <li class="dscroll-li">
-        <a href="">日用外出<i></i>
-        </a>
-      </li>
-      <li class="dscroll-li">
-        <a href="">美容香波<i></i>
-        </a>
-      </li>
-      <li class="dscroll-li">
-        <a href="">美容香波<i></i>
-        </a>
-      </li>
-      <li class="dscroll-li">
-        <a href="">美容香波<i></i>
-        </a>
-      </li>
-      <li class="dscroll-li">
-        <a href="">美容香波<i></i>
+      <li class="dscroll-li " v-for="(item,index) in navList" :class="{greyBg:index===currentIndex}"
+          :key="index" @click="navtrigger(index)">
+        <a href="">{{item.menu_name}}<i></i>
         </a>
       </li>
     </ul>
@@ -48,11 +13,32 @@
 
 <script>
   import BScroll from 'better-scroll'
+  import {mapState} from 'vuex'
   export default {
+    data(){
+      return{
+        navIndex:0
+         }
+    },
     mounted(){
-      new BScroll(this.$refs.homeNav, {
-        scrollX: true
+      this.$store.dispatch('reqHomeNav'),
+        new BScroll(this.$refs.homeNav, {
+        scrollX: true,
+          click:true
       })
+    },
+    computed: {
+      currentIndex(){
+        return this.navIndex
+      },
+      ...mapState(['navList']),
+    },
+    methods: {
+      navtrigger(index){
+        console.log(index);
+        this.navIndex=index
+
+      }
     },
     components: {}
   }
@@ -71,6 +57,8 @@
       white-space nowrap
       .dscroll-li
         display inline-block
+        &.greyBg
+          border-bottom :3px solid green
         & > a
           display inline-block
           width: 74.5px
@@ -79,7 +67,7 @@
           -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
           font-size: 14px;
           text-align: center;
-          color: #666;
+
 
 
 

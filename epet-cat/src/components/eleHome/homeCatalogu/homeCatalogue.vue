@@ -1,64 +1,34 @@
 <template>
   <div class="home-catalogue">
-    <ul class="home-list">
-      <li>
+    <ul class="home-list" v-if="HomeData[1]">
+
+      <li v-for="(homecatasIcon,index) in HomeData[1].menus" :key="index" >
         <a href="">
-          <img src="../home-list/1-1.jpg" alt="">
+          <img :src="homecatasIcon.image">
         </a>
       </li>
-      <li>
-        <a href="">
-          <img src="../home-list/1-2.jpg" alt="">
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="../home-list/1-3.jpg" alt="">
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="../home-list/1-4.jpg" alt="">
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="../home-list/1-5.jpg" alt="">
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="../home-list/2-1.jpg" alt="">
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="../home-list/2-2.jpg" alt="">
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="../home-list/2-3.jpg" alt="">
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="../home-list/2-4.jpg" alt="">
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="../home-list/2-5.jpg" alt="">
-        </a>
-      </li>
+
     </ul>
   </div>
 </template>
 
 <script>
-
+  import {mapState} from 'vuex'
   export default {
+    data(){
+      return{
+        HomeData1:{}
+         }
+    },
+    computed: {
+      ...mapState(['HomeData']),
 
+    },
+    mounted(){
+      this.$store.dispatch('reqHomeData')
+
+
+    },
     components: {}
   }
 </script>

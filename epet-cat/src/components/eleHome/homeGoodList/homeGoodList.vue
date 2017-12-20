@@ -55,7 +55,7 @@
     mounted(){
       new BScroll(this.$refs.surprisePro, {
         scrollX: true,
-        scrollY:false
+        scrollY:true
       })
     },
     components: {}

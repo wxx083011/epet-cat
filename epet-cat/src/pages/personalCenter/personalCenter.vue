@@ -39,7 +39,7 @@
           <ul>
             <li class="clearfix">
               <span class="numico"></span>
-              <input type="text" placeholder="已注册的手机号" name="phone">
+              <input type="text" placeholder="已注册的手机号" name="phone" v-model="phone">
             </li>
             <li>
               <span class="passwordico"></span>
@@ -50,8 +50,8 @@
             </li>
             <li>
               <span class="passwordico"></span>
-              <input type="text" class="dttext" placeholder="动态密码">
-              <a class="get_phonepass ">获取动态密码</a>
+              <input type="text" class="dttext" placeholder="动态密码" v-model="code">
+              <a class="get_phonepass " @click="sendCode">获取动态密码</a>
             </li>
           </ul>
         </div>
@@ -60,8 +60,9 @@
         <a href="https://wap.epet.com/login.html?do=findpassword" class="btn-register">忘记密码？</a>
         <div class="clear"></div>
       </div>
-      <div class="loginbtn">
+      <div class="loginbtn" @click="login">
         <a href="#">登  录</a>
+        <p>登陆状态: {{status}}</p>
       </div>
       <div class="space"></div>
       <div class="partners">
@@ -83,11 +84,15 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
   export default{
     data () {
       return{
         isShowI1: true,
-        isShowI2:false
+        isShowI2:false,
+        phone: '',
+        code: '',
+        status: '未登陆'
       }
     },
 
@@ -96,7 +101,25 @@
         this.isShowI2 =!this.isShowI2
         this.isShowI1 =!this.isShowI1
       },
+      sendCode() {
+        const url = `codeapi/sendcode?phone=${this.phone}`
+        axios.get(url).then(response => {
+          console.log('sendcode result ', response.data)
+        })
+      },
 
+      login() {
+        axios.post('codeapi/login', {phone: this.phone, code: this.code}).then(response => {
+          console.log('login result ', response.data)
+          const result = response.data
+          if (result.code == 0) {
+            const user = result.data
+            this.status = `登陆成功: ${user.phone}`
+          } else {
+            this.status = `登陆失败, 请输入正确的手机号和验证码`
+          }
+        })
+      }
     },
     mounted(){
 

@@ -3,5 +3,9 @@
  */
 export default {
   categorys:[],
-  brands:[]
+  brands:[],
+  navList:[],
+  slidpic:{},
+  HomeData:[],
+  brandgather:[]
 }
